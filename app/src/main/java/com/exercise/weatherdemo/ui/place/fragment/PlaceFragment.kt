@@ -1,6 +1,5 @@
 package com.sunnyweather.android.ui.place
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.exercise.weatherdemo.MainActivity
 import com.exercise.weatherdemo.R
 import com.exercise.weatherdemo.ui.place.viewmodel.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
@@ -54,7 +52,7 @@ class PlaceFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-        viewModel.placeLiveData.observe(this, Observer{ result ->
+        viewModel.placeLiveData.observe(viewLifecycleOwner, Observer{ result ->
             val places = result.getOrNull()
             if (places != null) {
                 recyclerView.visibility = View.VISIBLE

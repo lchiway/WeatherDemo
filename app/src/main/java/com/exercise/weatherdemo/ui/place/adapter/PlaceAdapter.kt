@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.weatherdemo.R
 import com.exercise.weatherdemo.logic.model.Place
+import com.exercise.weatherdemo.ui.weather.activity.WeatherActivity
+import kotlinx.android.synthetic.main.activity_weather.*
 
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) : RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
@@ -18,7 +20,7 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.place_item, parent, false)
-        /*val holder = ViewHolder(view)
+        val holder = ViewHolder(view)
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition
             val place = placeList[position]
@@ -38,9 +40,9 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
                 fragment.startActivity(intent)
                 activity?.finish()
             }
-            fragment.viewModel.savePlace(place)
-        }*/
-        return ViewHolder(view)
+            //fragment.viewModel.savePlace(place)
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
