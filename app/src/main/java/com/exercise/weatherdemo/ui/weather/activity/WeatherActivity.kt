@@ -1,9 +1,13 @@
 package com.exercise.weatherdemo.ui.weather.activity
 
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +23,8 @@ import com.exercise.weatherdemo.logic.model.getSky
 import com.exercise.weatherdemo.ui.weather.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.forecast.*
+import kotlinx.android.synthetic.main.forecast.forecastLayout
+import kotlinx.android.synthetic.main.hourly.*
 import kotlinx.android.synthetic.main.life_index.*
 import kotlinx.android.synthetic.main.now.*
 import java.text.SimpleDateFormat
@@ -30,12 +36,8 @@ class WeatherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*if (Build.VERSION.SDK_INT >= 21) {
-            val decorView = window.decorView
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            window.statusBarColor = Color.TRANSPARENT
-        }*/
         setContentView(R.layout.activity_weather)
+        setFullScreen()
         if (viewModel.locationLng.isEmpty()) {
             viewModel.locationLng = intent.getStringExtra("location_lng") ?: ""
         }
@@ -77,6 +79,21 @@ class WeatherActivity : AppCompatActivity() {
         })
     }
 
+    private fun setFullScreen(){
+        if (Build.VERSION.SDK_INT >= 30) {
+            window.insetsController.also {
+                it?.hide(WindowInsets.Type.statusBars())
+                it?.hide(WindowInsets.Type.navigationBars())
+                it?.hide(WindowInsets.Type.systemBars())
+            }
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            val decorView = window.decorView
+            window.statusBarColor = Color.TRANSPARENT
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+    }
+
     fun refreshWeather() {
         viewModel.refreshWeather(viewModel.locationLng, viewModel.locationLat)
         swipeRefresh.isRefreshing = true
@@ -85,7 +102,8 @@ class WeatherActivity : AppCompatActivity() {
     private fun showWeatherInfo(weather: Weather?) {
         placeName.text = viewModel.placeName
         val realtime = weather!!.realtime
-        val daily = weather!!.daily
+        val daily = weather.daily
+        val hourly = weather.hourly
         // 填充now.xml布局中数据
         val currentTempText = "${realtime.temperature.toInt()} ℃"
         currentTemp.text = currentTempText
@@ -93,6 +111,21 @@ class WeatherActivity : AppCompatActivity() {
         val currentPM25Text = "空气指数 ${realtime.airQuality.aqi.nation.toInt()}"
         currentAQI.text = currentPM25Text
         nowLayout.setBackgroundResource(getSky(realtime.skycon).bg)
+        // 填充hourly.xml布局中的数据
+        hourly_layout.removeAllViews()
+        val hours = hourly.skycon.size
+        for(i in 0 until hours) {
+            val skycon = hourly.skycon[i]
+            val temp = hourly.temperature[i]
+            val view = LayoutInflater.from(this).inflate(R.layout.hourly_item, hourly_layout, false)
+            val hour = view.findViewById(R.id.hourly_time) as TextView
+            val skyIcon = view.findViewById(R.id.hourly_skycon) as ImageView
+            val temperature = view.findViewById(R.id.hourly_temp) as TextView
+            hour.text = SimpleDateFormat("HH", Locale.getDefault()).format(skycon.datetime)
+            skyIcon.setImageResource(getSky(skycon.value).icon)
+            temperature.text = "${temp.value.toInt()} ℃"
+            hourly_layout.addView(view)
+        }
         // 填充forecast.xml布局中的数据
         forecastLayout.removeAllViews()
         val days = daily.skycon.size

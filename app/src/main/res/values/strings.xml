@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherDemo</string>
+    <string name="hourly_title">12小时预报</string>
 </resources>

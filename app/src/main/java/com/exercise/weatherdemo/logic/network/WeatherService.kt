@@ -1,6 +1,7 @@
 package com.exercise.weatherdemo.logic.network
 
 import com.exercise.weatherdemo.WeatherDemoApplication
+import com.exercise.weatherdemo.logic.model.HourlyResponse
 import com.exercise.weatherdemo.logic.model.RealtiimResponse
 import com.exercise.weatherdemo.logic.model.dailyResponse
 import retrofit2.Call
@@ -13,4 +14,7 @@ interface WeatherService {
 
     @GET("v2.5/${WeatherDemoApplication.TOKEN}/{lng},{lat}/daily.json")
     fun getDailyWeather(@Path("lng")lng: String, @Path("lat")lat: String) : Call<dailyResponse>
+
+    @GET("v2.5/${WeatherDemoApplication.TOKEN}/{lng},{lat}/hourly.json?hourlysteps=12")
+    fun getHourlyWeather(@Path("lng")lng: String, @Path("lat")lat: String) : Call<HourlyResponse>
 }
