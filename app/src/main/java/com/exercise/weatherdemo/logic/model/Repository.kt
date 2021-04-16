@@ -57,6 +57,8 @@ object Repository {
 
     fun isPlaceSaved() = PlaceDao.isPlaceSaved()
 
+    fun deleteListItem(place: Place) = PlaceDao.deleteListItem(place)
+
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
         liveData<Result<T>>(context) {
             val result = try {

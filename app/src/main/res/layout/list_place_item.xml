@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listPlaceLayout"
+<com.exercise.weatherdemo.common.SwipeLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeListLayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
-    android:background="@drawable/bg_clear_day">
+    android:layout_height="@dimen/list_item_height">
 
-    <TextView
-        android:id="@+id/listPlaceName"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:layout_gravity="center|start"
-        android:textSize="@dimen/list_place_text_size"
-        android:textColor="#fff"
-        />
+    <LinearLayout
+        android:id="@+id/listPlaceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:background="@drawable/bg_clear_day">
 
-    <TextView
-        android:id="@+id/listPlaceTemp"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:layout_gravity="center|end"
-        android:gravity="end"
-        android:textSize="@dimen/weather_title_text_size"
-        android:textColor="#fff"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/listPlaceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:textSize="@dimen/list_place_text_size" />
+
+        <TextView
+            android:id="@+id/listPlaceTemp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="#fff"
+            android:textSize="@dimen/weather_title_text_size" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/deleteListItem"
+        android:layout_width="@dimen/list_item_height"
+        android:layout_height="@dimen/list_item_height"
+        android:background="#f00">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/delete_item"
+            android:textSize="18sp"
+            android:textColor="#fff"/>
+    </FrameLayout>
+</com.exercise.weatherdemo.common.SwipeLinearLayout>

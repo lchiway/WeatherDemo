@@ -7,9 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.WindowInsets
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,12 +41,14 @@ class WeatherActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
     private val locationViewModel by lazy { ViewModelProvider(this).get(PlaceLocationViewModel::class.java) }
     private var exitTime: Long = 0
+    private lateinit var scrollView: ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()
         setContentView(R.layout.activity_weather)
         //initLocationInfo()
+        scrollView = findViewById(R.id.weatherLayout)
         if(WeatherPermission.checkPermission(this)){
             locationViewModel.requestLocationUpdate()
             initObserver()
@@ -107,6 +111,7 @@ class WeatherActivity : AppCompatActivity() {
                 viewModel.locationLng = result.lng
                 viewModel.locationLat = result.lat
                 viewModel.placeName = result.name
+                viewModel.savePlace() //should be optimized
                 refreshWeather()
             } else {
                 Toast.makeText(this, "无法成功获取定位信息", Toast.LENGTH_SHORT).show()
@@ -138,6 +143,9 @@ class WeatherActivity : AppCompatActivity() {
             EventBus.getDefault().post(UpdateEvent(true))
             drawerLayout.openDrawer(GravityCompat.END)
         }
+        scrollView.viewTreeObserver.addOnScrollChangedListener( ViewTreeObserver.OnScrollChangedListener {
+            swipeRefresh.isEnabled = (scrollView.scrollY == 0)
+        })
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(newState: Int) {}
 

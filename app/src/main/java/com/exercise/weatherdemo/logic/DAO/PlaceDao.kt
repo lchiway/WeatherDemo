@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.exercise.weatherdemo.WeatherDemoApplication
+import com.exercise.weatherdemo.common.CommonObject
 import com.exercise.weatherdemo.logic.model.Place
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -47,5 +48,11 @@ object PlaceDao {
 
     fun isPlaceSaved(): Boolean{
         return getSharedPreferences().contains("place")
+    }
+
+    fun deleteListItem(place: Place) {
+        val places = getPlace()
+        places.removeAt(CommonObject.checkPlaceContains(places, place))
+        savePlace(places)
     }
 }

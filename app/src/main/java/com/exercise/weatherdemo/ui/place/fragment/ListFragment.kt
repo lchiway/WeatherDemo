@@ -29,8 +29,7 @@ import org.greenrobot.eventbus.Subscribe
 class ListFragment: Fragment() {
 
     private lateinit var adapter: ListAdapter
-    //private val viewModelList: ArrayList<WeatherViewModel> = ArrayList()
-    private val viewModel by lazy { ViewModelProvider(this).get(ListPlaceViewModel::class.java) }
+    val viewModel by lazy { ViewModelProvider(this).get(ListPlaceViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,7 +90,7 @@ class ListFragment: Fragment() {
         weatherViewModel.weatherLiveData.observe(this.viewLifecycleOwner, Observer { result ->
             val weather = result.getOrNull()
             if (weather != null) {
-                if(viewModel.placeItemList.size!=placeList.size || !CommonObject.checkPlaceContains(placeList, place))
+                if(viewModel.placeItemList.size!=placeList.size || CommonObject.checkPlaceContains(placeList, place) == -1)
                     viewModel.placeItemList.add(PlaceListItem(place, weather, weatherViewModel))
                 adapter.notifyDataSetChanged()
             } else {

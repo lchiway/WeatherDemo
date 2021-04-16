@@ -1,6 +1,8 @@
 package com.exercise.weatherdemo.ui.place.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.exercise.weatherdemo.common.CommonObject
+import com.exercise.weatherdemo.logic.model.Place
 import com.exercise.weatherdemo.logic.model.Repository
 import com.exercise.weatherdemo.logic.model.Weather
 import com.exercise.weatherdemo.logic.model.data.PlaceListItem
@@ -13,5 +15,11 @@ class ListPlaceViewModel: ViewModel() {
     var placeListLiveData = Repository.placeListLiveData
     val placeList = getPlace()
     val placeItemList = ArrayList<PlaceListItem>()
+
     fun getPlace() = Repository.getPlace()
+
+    fun deleteListItem(place: Place, position: Int) {
+        placeItemList.removeAt(position)
+        Repository.deleteListItem(place)
+    }
 }

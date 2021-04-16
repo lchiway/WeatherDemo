@@ -35,7 +35,7 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
                 activity.viewModel.placeName = place.name
                 activity.refreshWeather()
             }
-            if(!CommonObject.checkPlaceContains(placeSaveList, place))
+            if(CommonObject.checkPlaceContains(placeSaveList, place)==-1)
                 placeSaveList.add(place)
             fragment.viewModel.savePlace(placeSaveList)
         }
