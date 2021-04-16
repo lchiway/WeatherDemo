@@ -1,6 +1,7 @@
 package com.exercise.weatherdemo.ui.place.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,8 +62,14 @@ class ListAdapter(
             //holder.swipeLinearLayout.scrollAuto(SwipeLinearLayout.DIRECTION_SHRINK)
         }
         holder.deleteListItem.setOnClickListener {
-            fragment.viewModel.deleteListItem(placeItemList[holder.adapterPosition].place, holder.adapterPosition)
-            holder.swipeLinearLayout.scrollAuto(SwipeLinearLayout.DIRECTION_SHRINK)
+            Log.d("lvzw", "onCreateViewHolder: ${holder.adapterPosition}, ${placeItemList.size}")
+            if(holder.adapterPosition != 0) {
+                fragment.viewModel.deleteListItem(
+                    placeItemList[holder.adapterPosition].place,
+                    holder.adapterPosition
+                )
+                holder.swipeLinearLayout.scrollAuto(SwipeLinearLayout.DIRECTION_SHRINK)
+            }
         }
         return holder
     }

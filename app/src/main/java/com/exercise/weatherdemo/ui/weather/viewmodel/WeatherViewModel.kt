@@ -27,10 +27,15 @@ class WeatherViewModel : ViewModel(){
     }
 
     fun savePlace() {
+        placeName += "(定位）"
         val place: Place = Place(placeName, Location(locationLng, locationLat), "")
         val placeList = Repository.getPlace()
-        if(CommonObject.checkPlaceContains(placeList, place)==-1) {
+        if(placeList.size==0) {
             placeList.add(place)
+            Repository.savePlace(placeList)
+        }
+        else {
+            placeList[0] = place
             Repository.savePlace(placeList)
         }
     }
