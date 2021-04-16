@@ -1,6 +1,8 @@
 package com.exercise.weatherdemo.logic.model
 
 import androidx.lifecycle.liveData
+import com.exercise.weatherdemo.common.PlaceLocation
+import com.exercise.weatherdemo.logic.DAO.PlaceDao
 import com.exercise.weatherdemo.logic.model.Weather
 import com.exercise.weatherdemo.logic.network.WeatherDemoNetwork
 import kotlinx.coroutines.Dispatchers
@@ -9,6 +11,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 
 object Repository {
+    val placeListLiveData = PlaceDao.placeListLiveData
 
     fun searchPlaces(query: String) = fire(Dispatchers.IO) {
         val placeResponse = WeatherDemoNetwork.searchPlaces(query)
@@ -48,11 +51,11 @@ object Repository {
         }
     }
 
-    //fun savePlace(place: Place) = PlaceDao.savePlace(place)
+    fun savePlace(place: ArrayList<Place>) = PlaceDao.savePlace(place)
 
-    //fun getSavedPlace() = PlaceDao.getSavedPlace()
+    fun getPlace() = PlaceDao.getPlace()
 
-    //fun isPlaceSaved() = PlaceDao.isPlaceSaved()
+    fun isPlaceSaved() = PlaceDao.isPlaceSaved()
 
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
         liveData<Result<T>>(context) {
@@ -64,4 +67,6 @@ object Repository {
             emit(result)
         }
 
+    fun requestLocationUpdate() = PlaceLocation.requestLocationUpdate()
+    fun removeLocationRequest() = PlaceLocation.removeLocationRequest()
 }

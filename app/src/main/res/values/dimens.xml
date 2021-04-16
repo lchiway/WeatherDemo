@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_size">20dp</dimen>
+    <dimen name="weather_title_text_size">20sp</dimen>
+    <dimen name="skycon_size">20dp</dimen>
+    <!-- forecast dimens -->
+    <dimen name="forecast_icon_margin_size">70dp</dimen>
+    <!-- life index dimens -->
+    <dimen name="life_index_icon_size">40dp</dimen>
+    <dimen name="life_index_layout_width">0dp</dimen>
+    <dimen name="life_index_layout_height">80dp</dimen>
+    <dimen name="life_index_margin">4dp</dimen>
+    <!-- place list dimen -->
+    <dimen name="list_place_text_size">25sp</dimen>
+    <dimen name="list_item_height">80dp</dimen>
+</resources>

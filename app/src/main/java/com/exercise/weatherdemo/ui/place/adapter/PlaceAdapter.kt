@@ -1,4 +1,4 @@
-package com.sunnyweather.android.ui.place
+package com.exercise.weatherdemo.ui.place.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.exercise.weatherdemo.R
+import com.exercise.weatherdemo.common.CommonObject
 import com.exercise.weatherdemo.logic.model.Place
+import com.exercise.weatherdemo.ui.place.fragment.PlaceFragment
 import com.exercise.weatherdemo.ui.weather.activity.WeatherActivity
 import kotlinx.android.synthetic.main.activity_weather.*
 
@@ -25,22 +27,17 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
             val position = holder.adapterPosition
             val place = placeList[position]
             val activity = fragment.activity
+            val placeSaveList = fragment.viewModel.getPlace()
             if (activity is WeatherActivity) {
                 activity.drawerLayout.closeDrawers()
                 activity.viewModel.locationLng = place.location.lng
                 activity.viewModel.locationLat = place.location.lat
                 activity.viewModel.placeName = place.name
                 activity.refreshWeather()
-            } else {
-                val intent = Intent(parent.context, WeatherActivity::class.java).apply {
-                    putExtra("location_lng", place.location.lng)
-                    putExtra("location_lat", place.location.lat)
-                    putExtra("place_name", place.name)
-                }
-                fragment.startActivity(intent)
-                activity?.finish()
             }
-            //fragment.viewModel.savePlace(place)
+            if(!CommonObject.checkPlaceContains(placeSaveList, place))
+                placeSaveList.add(place)
+            fragment.viewModel.savePlace(placeSaveList)
         }
         return holder
     }
@@ -52,5 +49,4 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
     }
 
     override fun getItemCount() = placeList.size
-
 }

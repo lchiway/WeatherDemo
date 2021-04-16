@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nowLayout"
     android:layout_width="match_parent"
-    android:layout_height="530dp"
+    android:layout_height="400dp"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <FrameLayout
@@ -11,13 +12,13 @@
         android:layout_height="70dp"
         android:fitsSystemWindows="true">
 
-        <Button
+        <ImageButton
             android:id="@+id/navBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_home" />
+            android:background="@drawable/ic_search" />
 
         <TextView
             android:id="@+id/placeName"
@@ -28,8 +29,16 @@
             android:layout_gravity="center"
             android:singleLine="true"
             android:ellipsize="middle"
-            android:textColor="#fff"
+            android:textColor="@color/design_default_color_on_primary"
             android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/listBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/ic_list" />
 
     </FrameLayout>
 
@@ -45,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textColor="#fff"
+            android:textColor="@color/design_default_color_on_primary"
             android:textSize="70sp" />
 
         <LinearLayout
@@ -58,14 +67,14 @@
                 android:id="@+id/currentSky"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="@color/design_default_color_on_primary"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:textColor="#fff"
+                android:textColor="@color/design_default_color_on_primary"
                 android:textSize="18sp"
                 android:text="|" />
 
@@ -74,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:textColor="#fff"
+                android:textColor="@color/design_default_color_on_primary"
                 android:textSize="18sp" />
 
         </LinearLayout>

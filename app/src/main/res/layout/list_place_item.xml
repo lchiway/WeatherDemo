@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listPlaceLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="@drawable/bg_clear_day">
+
+    <TextView
+        android:id="@+id/listPlaceName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|start"
+        android:textSize="@dimen/list_place_text_size"
+        android:textColor="#fff"
+        />
+
+    <TextView
+        android:id="@+id/listPlaceTemp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|end"
+        android:gravity="end"
+        android:textSize="@dimen/weather_title_text_size"
+        android:textColor="#fff"/>
+</LinearLayout>

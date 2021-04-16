@@ -17,14 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".WeatherDemoApplication">
-        <activity android:name=".MainActivity">
+        <!-- location library -->
+        <uses-library android:name="com.google.android.maps" />
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.weather.activity.WeatherActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.weather.activity.WeatherActivity"/>
     </application>
 
 </manifest>

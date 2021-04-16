@@ -25,9 +25,27 @@
 
                 <include layout="@layout/now" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="20dp"
+                    android:background="#000000" />
+
                 <include layout="@layout/hourly" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="20dp"
+                    android:background="#000000" />
+
                 <include layout="@layout/forecast" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="20dp"
+                    android:background="#000000" />
 
                 <include layout="@layout/life_index" />
 
@@ -43,11 +61,27 @@
         android:layout_gravity="start"
         android:clickable="true"
         android:focusable="true"
-        android:background="@color/colorPrimary">
+        android:background="@android:color/transparent" >
 
         <fragment
             android:id="@+id/placeFragment"
-            android:name="com.sunnyweather.android.ui.place.PlaceFragment"
+            android:name="com.exercise.weatherdemo.ui.place.fragment.PlaceFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity = "end"
+        android:clickable="true"
+        android:focusable="true">
+
+        <fragment
+            android:id="@+id/listFragment"
+            android:name="com.exercise.weatherdemo.ui.place.fragment.ListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"/>
