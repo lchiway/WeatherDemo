@@ -9,4 +9,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/bg_clear_day</item>
+    </style>
+
 </resources>

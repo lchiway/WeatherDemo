@@ -73,19 +73,20 @@ class SwipeLinearLayout @JvmOverloads constructor(
                 if (!hasJudged) {
                     val dx = curX - startX
                     val dy = curY - startY
-                    if (dx * dx + dy * dy > MOVE_JUDGE_DISTANCE * MOVE_JUDGE_DISTANCE) {
-                        if (abs(dy) > abs(dx)) {
-                            allowParentsInterceptTouchEvent(parent)
-                            if (null != onSwipeListener) {
-                                onSwipeListener!!.onDirectionJudged(this, false)
-                            }
-                        } else {
-                            if (null != onSwipeListener) {
-                                onSwipeListener!!.onDirectionJudged(this, true)
-                            }
-                            lastX = curX
-                            lastY = curY
+
+                    if (abs(dy) > abs(dx)) {
+                        allowParentsInterceptTouchEvent(parent)
+                        if (null != onSwipeListener) {
+                            onSwipeListener!!.onDirectionJudged(this, false)
                         }
+                    } else {
+                        if (null != onSwipeListener) {
+                            onSwipeListener!!.onDirectionJudged(this, true)
+                        }
+                        lastX = curX
+                        lastY = curY
+                    }
+                    if (dx * dx + dy * dy > 2 * MOVE_JUDGE_DISTANCE * MOVE_JUDGE_DISTANCE) {
                         hasJudged = true
                         ignore = true
                     }
@@ -183,7 +184,7 @@ class SwipeLinearLayout @JvmOverloads constructor(
     companion object {
         const val DIRECTION_EXPAND = 0
         const val DIRECTION_SHRINK = 1
-        var MOVE_JUDGE_DISTANCE = 5f
+        var MOVE_JUDGE_DISTANCE = 15f
     }
 
     init {

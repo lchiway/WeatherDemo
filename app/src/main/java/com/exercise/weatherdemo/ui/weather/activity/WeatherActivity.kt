@@ -48,6 +48,7 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
         setFullScreen()
+        setTheme(R.style.AppTheme)
         //initLocationInfo()
         scrollView = findViewById(R.id.weatherLayout)
         if(WeatherPermission.checkPermission(this)){
